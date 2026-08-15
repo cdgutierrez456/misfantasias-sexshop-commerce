@@ -1,4 +1,4 @@
-# Marca blanca — catálogo
+# Mis Fantasías — Sex Shop · catálogo
 
 Catálogo de productos sin proceso de pago. Next 16 (App Router) + Supabase.
 Todo server-rendered: cero JavaScript de cliente propio, cero librerías de formularios,

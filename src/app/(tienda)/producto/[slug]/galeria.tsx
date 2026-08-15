@@ -18,7 +18,7 @@ export function Galeria({ images, alt }: { images: string[]; alt: string }) {
         type="button"
         onClick={() => lightbox.current?.showModal()}
         aria-label="Ver imagen completa"
-        className="relative block aspect-square w-full cursor-zoom-in border border-line bg-surface"
+        className="relative block aspect-square w-full cursor-zoom-in rounded-sm border border-line bg-wash"
       >
         <Image
           src={images[activa]}
@@ -39,8 +39,8 @@ export function Galeria({ images, alt }: { images: string[]; alt: string }) {
                 onClick={() => setActiva(i)}
                 aria-label={`Ver imagen ${i + 1} de ${images.length}`}
                 aria-current={i === activa}
-                className={`relative block aspect-square w-full border bg-surface transition-colors ${
-                  i === activa ? "border-ink" : "border-line opacity-60 hover:opacity-100"
+                className={`relative block aspect-square w-full rounded-sm border bg-wash transition-colors ${
+                  i === activa ? "border-brand" : "border-line opacity-60 hover:opacity-100"
                 }`}
               >
                 <Image src={src} alt="" fill sizes="15vw" className="object-contain p-1.5" />
@@ -55,7 +55,7 @@ export function Galeria({ images, alt }: { images: string[]; alt: string }) {
           con el que el navegador centra un dialog modal, y se va a la esquina. */}
       <dialog
         ref={lightbox}
-        className="m-auto max-h-none max-w-none bg-transparent p-0 backdrop:bg-ink/80"
+        className="m-auto max-h-none max-w-none bg-transparent p-0 backdrop:bg-brand-night/90"
       >
         <div
           onClick={() => lightbox.current?.close()}
@@ -67,7 +67,7 @@ export function Galeria({ images, alt }: { images: string[]; alt: string }) {
             type="button"
             onClick={() => lightbox.current?.close()}
             aria-label="Cerrar"
-            className="absolute top-0 right-0 grid size-11 place-items-center bg-paper text-lg text-ink transition-opacity hover:opacity-80"
+            className="absolute top-0 right-0 grid size-11 place-items-center rounded-sm bg-brand text-lg text-white transition-colors hover:bg-brand-soft"
           >
             ✕
           </button>

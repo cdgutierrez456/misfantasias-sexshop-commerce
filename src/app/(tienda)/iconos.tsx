@@ -1,4 +1,4 @@
-// SVG en línea, sin librería de iconos: son tres glifos que no van a cambiar.
+// SVG en línea, sin librería de iconos: son siete glifos que no van a cambiar.
 // Heredan el color con currentColor y el tamaño desde la clase del padre.
 
 export function IconoWhatsApp({ className = "size-5" }: { className?: string }) {
@@ -30,6 +30,53 @@ export function IconoFacebook({ className = "size-5" }: { className?: string }) 
   return (
     <svg viewBox="0 0 24 24" aria-hidden className={`${className} fill-current`}>
       <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12Z" />
+    </svg>
+  );
+}
+
+// Los cuatro de la sección "Envío discreto". Mismo trazo y misma caja para que
+// se lean como un juego, no como iconos sueltos.
+const trazo = {
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: "1.4",
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+} as const;
+
+export function IconoCaja({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg {...trazo} aria-hidden className={className}>
+      <path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z" />
+      <path d="M3 7.5 12 12l9-4.5M12 12v9" />
+    </svg>
+  );
+}
+
+export function IconoEscudo({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg {...trazo} aria-hidden className={className}>
+      <path d="M12 3 4.5 6v6c0 4.4 3.1 8.1 7.5 9 4.4-.9 7.5-4.6 7.5-9V6z" />
+      <path d="m9 12 2.2 2.2L15.5 10" />
+    </svg>
+  );
+}
+
+export function IconoTarjeta({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg {...trazo} aria-hidden className={className}>
+      <rect x="2.5" y="5.5" width="19" height="13" rx="2" />
+      <path d="M2.5 10h19M6 14.5h3.5" />
+    </svg>
+  );
+}
+
+export function IconoChat({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg {...trazo} aria-hidden className={className}>
+      <path d="M20.5 12.2c0 4-3.8 7.2-8.5 7.2-1 0-2-.2-2.9-.4L4 20.5l1.3-3.6a6.9 6.9 0 0 1-1.8-4.7C3.5 8.2 7.3 5 12 5s8.5 3.2 8.5 7.2Z" />
+      <path d="M9 11.8h.01M12 11.8h.01M15 11.8h.01" />
     </svg>
   );
 }

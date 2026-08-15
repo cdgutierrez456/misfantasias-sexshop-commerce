@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { price } from "@/lib/format";
-import { whatsappUrl } from "@/lib/contacto";
+import { MARCA, whatsappUrl } from "@/lib/contacto";
 import { IconoWhatsApp } from "../../iconos";
 
 type Variante = { label: string | null; stock: number };
@@ -31,8 +31,11 @@ export function Contacto({
   const elegida = conTalla.length ? conTalla.find((v) => v.label === talla) : variantes[0];
   const disponible = elegida?.stock ?? 0;
 
+  // Este es el único mensaje que NO es el estándar: viaja con lo que el
+  // visitante acaba de elegir. Los demás botones de WhatsApp del sitio usan
+  // MENSAJE_GENERAL desde lib/contacto.
   const mensaje = [
-    "Hola, me interesa este producto de Marca blanca:",
+    `Hola ${MARCA}, me interesa este producto:`,
     "",
     `*${nombre}*`,
     categoria && `Categoría: ${categoria}`,
@@ -63,12 +66,12 @@ export function Contacto({
                     setTalla(v.label);
                     setCantidad(1);
                   }}
-                  className={`border px-4 py-2 text-sm transition-colors ${
+                  className={`rounded-sm border px-4 py-2 text-sm transition-colors ${
                     v.label === talla
-                      ? "border-ink bg-ink text-paper"
+                      ? "border-brand bg-brand text-white"
                       : v.stock === 0
                         ? "cursor-not-allowed border-line text-faint line-through decoration-1"
-                        : "border-line hover:border-ink"
+                        : "border-line hover:border-brand hover:text-brand"
                   }`}
                 >
                   {v.label}
@@ -100,10 +103,10 @@ export function Contacto({
         href={whatsappUrl(mensaje)}
         target="_blank"
         rel="noopener noreferrer"
-        className="mt-6 flex items-center justify-center gap-2.5 bg-whatsapp py-3.5 text-xs tracking-[0.14em] text-ink uppercase transition-opacity hover:opacity-85"
+        className="cta mt-6 w-full bg-brand py-4 text-white hover:bg-brand-deep"
       >
         <IconoWhatsApp className="size-4" />
-        Contactar con vendedor
+        Lo quiero — escribir por WhatsApp
       </a>
 
       <p className="mt-3 text-center text-xs text-faint">

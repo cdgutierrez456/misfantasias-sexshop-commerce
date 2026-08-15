@@ -31,26 +31,30 @@ export default async function Producto({ params }: PageProps<"/producto/[slug]">
         {images.length ? (
           <Galeria images={images.map((img) => imageUrl(img.path))} alt={product.name} />
         ) : (
-          <div className="grid aspect-[4/5] place-items-center bg-wash text-xs text-faint">
+          <div className="grid aspect-square place-items-center rounded-sm border border-line bg-wash text-xs text-faint">
             Sin imagen
           </div>
         )}
       </div>
 
       <div className="lg:sticky lg:top-28 lg:self-start">
-        <Link href="/" className="label hover:text-ink">
-          ← Volver
+        <Link href="/#productos" className="label hover:text-brand">
+          ← Volver al catálogo
         </Link>
 
-        {category && <p className="label mt-8">{category.name}</p>}
-        <h1 className="mt-2 text-3xl leading-tight font-light tracking-tight">{product.name}</h1>
+        {category && (
+          <p className="mt-8 text-[0.6875rem] tracking-[0.2em] text-brand uppercase">
+            {category.name}
+          </p>
+        )}
+        <h1 className="mt-3 font-serif text-3xl leading-tight font-normal">{product.name}</h1>
 
-        <p className="mt-5 flex items-baseline gap-3 text-lg tabular-nums">
+        <p className="mt-5 flex flex-wrap items-baseline gap-3 font-serif text-2xl text-brand tabular-nums">
           {product.discount_percent > 0 ? (
             <>
-              <span className="text-faint line-through">{price(product.price)}</span>
+              <span className="text-lg text-faint line-through">{price(product.price)}</span>
               <span>{price(finalPrice(product.price, product.discount_percent))}</span>
-              <span className="bg-ink px-2 py-1 text-[0.625rem] tracking-[0.14em] text-paper uppercase">
+              <span className="rounded-sm bg-brand-deep px-2.5 py-1.5 font-sans text-[0.625rem] tracking-[0.18em] text-cream uppercase">
                 −{product.discount_percent}%
               </span>
             </>
@@ -75,6 +79,12 @@ export default async function Producto({ params }: PageProps<"/producto/[slug]">
           descuento={product.discount_percent}
           variantes={variants}
         />
+
+        <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2 border-t border-line pt-6 text-[0.6875rem] tracking-[0.12em] text-faint uppercase">
+          <li>Empaque neutro</li>
+          <li>Envío 24–48 h</li>
+          <li>Cobro discreto</li>
+        </ul>
       </div>
     </article>
   );

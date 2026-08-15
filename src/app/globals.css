@@ -1,25 +1,60 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #fbfbfa;
+  /* Mismos nombres de token que antes, valores nuevos: al cambiarlos aquí se
+     repinta también el panel /admin sin tocar una sola de sus clases. */
+  --color-paper: #fff8f5;
   --color-surface: #ffffff;
-  --color-ink: #101011;
-  --color-muted: #76767c;
-  --color-faint: #a3a3a8;
-  --color-line: #e6e6e3;
-  --color-wash: #f2f2ef;
-  /* Los dos únicos colores, cada uno con un solo trabajo. El rojo se reserva
-     para lo irreversible: usarlo en otra cosa le quita el significado. */
+  --color-ink: #2a0e1d;
+  --color-muted: #6e5361;
+  --color-faint: #9b6e85;
+  --color-line: #ebd8e1;
+  --color-wash: #fbf1f6;
+  /* El rojo se reserva para lo irreversible. Con la marca en rosa hay que
+     distinguirlo bien: por eso el danger tira a ladrillo, no a fucsia. */
   --color-danger: #b42318;
-  /* Verde de marca de WhatsApp. Lleva texto oscuro a propósito: en blanco el
-     contraste queda en 2.2:1 y el texto pequeño se vuelve ilegible. */
-  --color-whatsapp: #25d366;
 
-  --font-sans: ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+  /* Marca. brand es el rosa de acción, deep/dark los fondos vino, cream el
+     texto que va encima de ellos. */
+  --color-brand: #d6247a;
+  --color-brand-soft: #f06ba8;
+  --color-brand-pale: #f5a7cd;
+  --color-brand-deep: #6b1240;
+  --color-brand-dark: #3d0722;
+  --color-brand-night: #2c0518;
+  --color-cream: #fff1f7;
+
+  --font-sans: var(--font-jost), ui-sans-serif, -apple-system, "Segoe UI", Helvetica, sans-serif;
+  --font-serif: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-script: var(--font-parisienne), cursive;
+
+  --animate-fade-up: fade-up 0.7s ease both;
+  --animate-wa-pulse: wa-pulse 2.6s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes wa-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(214, 36, 122, 0.45);
+    }
+    50% {
+      box-shadow: 0 0 0 14px rgba(214, 36, 122, 0);
+    }
+  }
 }
 
-/* ponytail: solo tema claro. El monocromo claro es el encargo; el modo
-   oscuro se agrega duplicando estas variables bajo prefers-color-scheme. */
+/* ponytail: solo tema claro. El esquema claro es el encargo; el modo oscuro
+   se agrega duplicando estas variables bajo prefers-color-scheme. */
 html {
   background: var(--color-paper);
   color: var(--color-ink);
@@ -31,8 +66,8 @@ body {
 }
 
 ::selection {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--color-brand);
+  color: var(--color-cream);
 }
 
 @utility label {
@@ -40,6 +75,30 @@ body {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-muted);
+}
+
+/* Rótulo rosa que encabeza cada sección en el diseño. */
+@utility eyebrow {
+  font-size: 0.6875rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color-brand);
+}
+
+/* Botón de acción: aparece en header, hero, envío discreto y fichas. Sale del
+   fondo y el color del texto por clase, que es lo único que cambia entre
+   variantes. */
+@utility cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  padding: 0.9rem 1.75rem;
+  border-radius: 2px;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 
 @utility field {
@@ -51,6 +110,16 @@ body {
   outline: none;
 
   &:focus {
-    border-color: var(--color-ink);
+    border-color: var(--color-brand);
   }
+}
+
+/* Placeholder de categoría sin foto: mismo rayado del diseño. Cuando la tabla
+   `categories` tenga columna de imagen, se cambia por la foto. */
+@utility stripes {
+  background-image: repeating-linear-gradient(
+    135deg,
+    #ebd6e1 0 10px,
+    #f6eaf0 10px 20px
+  );
 }

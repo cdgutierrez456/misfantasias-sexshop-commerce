@@ -1,4 +1,4 @@
--- Marca blanca — esquema del catálogo
+-- Mis Fantasías — Sex Shop · esquema del catálogo
 -- Pegar completo en Supabase Studio → SQL Editor → Run
 
 create extension if not exists pgcrypto;

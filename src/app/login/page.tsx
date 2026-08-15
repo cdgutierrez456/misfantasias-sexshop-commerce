@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { supabase } from "@/lib/supabase";
+import { Marca } from "../marca";
 
 export default async function Login({ searchParams }: PageProps<"/login">) {
   const { error } = await searchParams;
@@ -24,11 +25,8 @@ export default async function Login({ searchParams }: PageProps<"/login">) {
   return (
     <main className="grid min-h-screen place-items-center px-6">
       <div className="w-full max-w-sm">
-        <Link
-          href="/"
-          className="block text-center text-[0.9rem] font-medium tracking-[0.28em] uppercase"
-        >
-          Marca blanca
+        <Link href="/" className="flex justify-center">
+          <Marca />
         </Link>
         <p className="label mt-2 text-center">Panel administrativo</p>
 
@@ -49,8 +47,8 @@ export default async function Login({ searchParams }: PageProps<"/login">) {
             autoComplete="current-password"
             required
           />
-          {error && <p className="text-xs text-ink">Credenciales incorrectas.</p>}
-          <button className="w-full bg-ink py-2.5 text-xs tracking-[0.14em] text-paper uppercase transition-opacity hover:opacity-80">
+          {error && <p className="text-xs text-danger">Credenciales incorrectas.</p>}
+          <button className="w-full rounded-sm bg-brand py-2.5 text-xs tracking-[0.14em] text-white uppercase transition-colors hover:bg-brand-deep">
             Entrar
           </button>
         </form>
