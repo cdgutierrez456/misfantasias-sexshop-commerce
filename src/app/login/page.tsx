@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 
@@ -23,9 +24,12 @@ export default async function Login({ searchParams }: PageProps<"/login">) {
   return (
     <main className="grid min-h-screen place-items-center px-6">
       <div className="w-full max-w-sm">
-        <p className="text-center text-[0.9rem] font-medium tracking-[0.28em] uppercase">
+        <Link
+          href="/"
+          className="block text-center text-[0.9rem] font-medium tracking-[0.28em] uppercase"
+        >
           Marca blanca
-        </p>
+        </Link>
         <p className="label mt-2 text-center">Panel administrativo</p>
 
         <form action={signIn} className="mt-10 space-y-3">
@@ -52,7 +56,7 @@ export default async function Login({ searchParams }: PageProps<"/login">) {
         </form>
 
         <p className="mt-8 text-center text-xs text-faint">
-          Acceso restringido. Las credenciales se crean desde Supabase.
+          Acceso restringido.
         </p>
       </div>
     </main>

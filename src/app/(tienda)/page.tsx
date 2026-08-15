@@ -55,14 +55,17 @@ export default async function Home({ searchParams }: PageProps<"/">) {
               return (
                 <li key={p.id}>
                   <Link href={`/producto/${p.slug}`} className="group block">
-                    <div className="relative aspect-[4/5] overflow-hidden bg-wash">
+                    {/* Mismo criterio que la ficha: contain para no recortar.
+                        El recuadro cuadrado con borde mantiene la grilla
+                        pareja aunque las fotos vengan con encuadres distintos. */}
+                    <div className="relative aspect-square overflow-hidden border border-line bg-surface">
                       {cover ? (
                         <Image
                           src={imageUrl(cover.path)}
                           alt={p.name}
                           fill
                           sizes="(max-width: 1024px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                          className="object-contain p-4 transition-transform duration-500 group-hover:scale-[1.03]"
                         />
                       ) : (
                         <div className="grid h-full place-items-center text-xs text-faint">

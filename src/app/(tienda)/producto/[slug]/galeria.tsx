@@ -11,24 +11,27 @@ export function Galeria({ images, alt }: { images: string[]; alt: string }) {
 
   return (
     <div>
+      {/* object-contain, no cover: la foto entra completa y se centra sola en
+          la caja. Recortar para llenar el contenedor perdía los bordes de
+          prendas verticales. El borde deja ver dónde termina el contenedor. */}
       <button
         type="button"
         onClick={() => lightbox.current?.showModal()}
         aria-label="Ver imagen completa"
-        className="relative block aspect-[4/5] w-full cursor-zoom-in overflow-hidden bg-wash"
+        className="relative block aspect-square w-full cursor-zoom-in border border-line bg-surface"
       >
         <Image
           src={images[activa]}
           alt={alt}
           fill
-          sizes="(max-width: 1024px) 100vw, 55vw"
-          className="object-cover"
+          sizes="(max-width: 1024px) 100vw, 45vw"
+          className="object-contain p-3"
           priority
         />
       </button>
 
       {images.length > 1 && (
-        <ul className="mt-3 grid grid-cols-5 gap-3">
+        <ul className="mt-3 grid grid-cols-5 gap-2">
           {images.map((src, i) => (
             <li key={src}>
               <button
@@ -36,11 +39,11 @@ export function Galeria({ images, alt }: { images: string[]; alt: string }) {
                 onClick={() => setActiva(i)}
                 aria-label={`Ver imagen ${i + 1} de ${images.length}`}
                 aria-current={i === activa}
-                className={`relative block aspect-square w-full overflow-hidden bg-wash outline-offset-2 transition-opacity ${
-                  i === activa ? "outline outline-ink" : "opacity-60 hover:opacity-100"
+                className={`relative block aspect-square w-full border bg-surface transition-colors ${
+                  i === activa ? "border-ink" : "border-line opacity-60 hover:opacity-100"
                 }`}
               >
-                <Image src={src} alt="" fill sizes="20vw" className="object-cover" />
+                <Image src={src} alt="" fill sizes="15vw" className="object-contain p-1.5" />
               </button>
             </li>
           ))}

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { supabase, imageUrl, one } from "@/lib/supabase";
 import { finalPrice, price } from "@/lib/format";
 import { Galeria } from "./galeria";
+import { Contacto } from "./contacto";
 
 export default async function Producto({ params }: PageProps<"/producto/[slug]">) {
   const { slug } = await params;
@@ -20,14 +21,12 @@ export default async function Producto({ params }: PageProps<"/producto/[slug]">
   if (!product) notFound();
 
   const images = product.images.sort((a, b) => a.position - b.position);
-  const variants = product.variants.sort((a, b) => a.position - b.position);
   // Un producto sin tallas es una sola variante con label null.
-  const sized = variants.filter((v) => v.label);
+  const variants = product.variants.sort((a, b) => a.position - b.position);
   const category = one(product.categories);
-  const totalStock = variants.reduce((sum, v) => sum + v.stock, 0);
 
   return (
-    <article className="mx-auto grid max-w-6xl gap-12 px-6 py-12 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
+    <article className="mx-auto grid max-w-5xl gap-12 px-6 py-12 lg:grid-cols-2 lg:gap-16">
       <div>
         {images.length ? (
           <Galeria images={images.map((img) => imageUrl(img.path))} alt={product.name} />
@@ -66,30 +65,16 @@ export default async function Producto({ params }: PageProps<"/producto/[slug]">
           </p>
         )}
 
-        <div className="mt-8 border-t border-line pt-8">
-          <p className="label">{sized.length ? "Tallas disponibles" : "Disponibilidad"}</p>
-          {sized.length ? (
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {sized.map((v) => (
-                <li
-                  key={v.label}
-                  className={`border px-4 py-2 text-sm ${
-                    v.stock > 0
-                      ? "border-ink"
-                      : "border-line text-faint line-through decoration-1"
-                  }`}
-                  title={v.stock > 0 ? `${v.stock} disponibles` : "Agotada"}
-                >
-                  {v.label}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="mt-3 text-sm">
-              {totalStock > 0 ? `${totalStock} unidades disponibles` : "Agotado"}
-            </p>
-          )}
-        </div>
+        {/* La lista de tallas ahora es el selector: mostrarlas y volver a
+            pedirlas en un desplegable aparte sería la misma info dos veces. */}
+        <Contacto
+          nombre={product.name}
+          categoria={category?.name ?? null}
+          precioLista={Number(product.price)}
+          precioFinal={finalPrice(product.price, product.discount_percent)}
+          descuento={product.discount_percent}
+          variantes={variants}
+        />
       </div>
     </article>
   );

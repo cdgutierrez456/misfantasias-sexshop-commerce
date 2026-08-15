@@ -8,9 +8,12 @@
   --color-faint: #a3a3a8;
   --color-line: #e6e6e3;
   --color-wash: #f2f2ef;
-  /* Único color de la paleta. Se reserva para lo irreversible: si se usa en
-     algo más, deja de significar "cuidado". */
+  /* Los dos únicos colores, cada uno con un solo trabajo. El rojo se reserva
+     para lo irreversible: usarlo en otra cosa le quita el significado. */
   --color-danger: #b42318;
+  /* Verde de marca de WhatsApp. Lleva texto oscuro a propósito: en blanco el
+     contraste queda en 2.2:1 y el texto pequeño se vuelve ilegible. */
+  --color-whatsapp: #25d366;
 
   --font-sans: ui-sans-serif, -apple-system, "Segoe UI", Inter, Helvetica, Arial, sans-serif;
 }
